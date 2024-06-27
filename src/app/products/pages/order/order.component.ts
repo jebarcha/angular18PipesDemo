@@ -8,6 +8,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
 import { Color, Hero } from '../../interfaces/hero.interface';
 import { CanFlyPipe } from '../../pipes/can-fly.pipe';
+import { SortByPipe } from '../../pipes/sort-by.pipe';
 
 @Component({
   selector: 'products-order',
@@ -22,12 +23,16 @@ import { CanFlyPipe } from '../../pipes/can-fly.pipe';
     SplitButtonModule,
     TableModule,
     CanFlyPipe,
+    SortByPipe,
   ],
 })
 export class OrderComponent {
   //implements OnInit {
 
   public isUpperCase: boolean = false;
+  public orderBy: keyof Hero = 'name';
+  public descending: boolean = false;
+
   public heroes: Hero[] = [
     {
       name: 'Superman',
@@ -51,13 +56,22 @@ export class OrderComponent {
     },
     {
       name: 'Linerna Verde',
-      canFly: false,
+      canFly: true,
       color: Color.green,
     },
   ];
 
   toggleUpperCase(): void {
     this.isUpperCase = !this.isUpperCase;
+  }
+
+  changeOrderBy(orderBy: keyof Hero) {
+    this.orderBy = orderBy;
+    this.descending = !this.descending;
+  }
+
+  getColorName(color: Color): string {
+    return Color[color];
   }
 
   // items: MenuItem[] = []; // | undefined;

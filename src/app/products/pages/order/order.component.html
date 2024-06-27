@@ -9,11 +9,13 @@
     <p-button (click)="toggleUpperCase()" label="ToggleCase" icon="pi pi-search" class="mr-2" />
   </div>
   <div class="p-toolbar-group-end">
-    <p-button label="By name" icon="pi pi-sort" class="mr-2" styleClass="p-button-success" />
+    <p-button (click)="changeOrderBy('name')" label="By name" icon="pi pi-sort" class="mr-2"
+      styleClass="p-button-success" />
 
-    <p-button label="Fly" icon="pi pi-sort" class="mr-2" styleClass="p-button-danger" />
+    <p-button (click)="changeOrderBy('canFly')" label="Fly" icon="pi pi-sort" class="mr-2"
+      styleClass="p-button-danger" />
 
-    <p-button label="Color" icon="pi pi-sort" styleClass="p-button-help" />
+    <p-button (click)="changeOrderBy('color')" label="Color" icon="pi pi-sort" styleClass="p-button-help" />
   </div>
   <!-- <div class="p-toolbar-group-center">
     <span class="p-input-icon-left">
@@ -29,7 +31,7 @@
 <div class="grid">
   <div class="col mt-2">
     <p-panel header="Heroes">
-      <p-table [value]="heroes" [tableStyle]="{ 'min-width': '50rem' }">
+      <p-table [value]="heroes | sortBy:orderBy:descending" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
           <tr>
             <th>Name</th>
@@ -41,7 +43,7 @@
           <tr>
             <td>{{ hero.name }}</td>
             <td>{{ hero.canFly | canFly | titlecase}}</td>
-            <td>{{ hero.color }}</td>
+            <td>{{ getColorName(hero.color) | titlecase}}</td>
           </tr>
         </ng-template>
       </p-table>
